@@ -1,4 +1,5 @@
 import 'package:event_ticket_booking/core/theme/app_colors.dart';
+import 'package:event_ticket_booking/features/login/presentation/ui/login_screen.dart';
 import 'package:event_ticket_booking/features/register/presentation/cubit/register_cubit.dart';
 import 'package:event_ticket_booking/features/register/presentation/cubit/register_state.dart';
 import 'package:event_ticket_booking/features/register/presentation/ui/widgets/register_form.dart';
@@ -29,7 +30,9 @@ class RegisterScreen extends StatelessWidget {
                 behavior: SnackBarBehavior.floating,
               ),
             );
-            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => const LoginScreen()),
+            );
           }
           if (state.status == Status.error) {
             ScaffoldMessenger.of(context).showSnackBar(

@@ -1,4 +1,5 @@
 import 'package:event_ticket_booking/core/networking/api_result.dart';
+import 'package:event_ticket_booking/core/networking/app_error.dart';
 import 'package:event_ticket_booking/features/register/data/models/register_request_model.dart';
 import 'package:event_ticket_booking/features/register/data/models/register_response_model.dart';
 import 'package:event_ticket_booking/features/register/data/repos/register_repo.dart';
@@ -25,6 +26,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         );
         break;
       case Error(error: final error):
+        final appError = error as AppError;
         emit(state.copyWith(status: Status.error, message: error.message));
         break;
     }
