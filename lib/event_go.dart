@@ -13,6 +13,7 @@ class EventGo extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'EventGo',
       theme: AppTheme.lightTheme,
+      themeMode: ThemeMode.light,
       onGenerateRoute: AppRouter.onGenerateRoutes,
       initialRoute: AppRoutes.registerScreen,
     );
