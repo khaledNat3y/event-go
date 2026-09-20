@@ -1,3 +1,5 @@
+import 'package:event_ticket_booking/core/helper/app_constants.dart';
+import 'package:event_ticket_booking/core/helper/shared_pref_helper.dart';
 import 'package:event_ticket_booking/core/routes/app_router.dart';
 import 'package:event_ticket_booking/core/routes/app_routes.dart';
 import 'package:event_ticket_booking/core/theme/app_colors.dart';
@@ -15,7 +17,18 @@ class EventGo extends StatelessWidget {
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
       onGenerateRoute: AppRouter.onGenerateRoutes,
-      initialRoute: AppRoutes.registerScreen,
+      initialRoute: isLoggedIn
+          ? AppRoutes.loginScreen
+          : AppRoutes.registerScreen,
     );
+  }
+}
+
+Future<void> checkIfUserIsLoggedIn() async {
+  final token = await SharedPrefHelper.getSecuredString(AppConstants.tokenKey);
+  if (token.isNotEmpty) {
+    isLoggedIn = true;
+  } else {
+    isLoggedIn = false;
   }
 }

@@ -7,5 +7,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupGetIt();
   await dotenv.load();
+  await checkIfUserIsLoggedIn();
   runApp(const EventGo());
 }
