@@ -1,6 +1,8 @@
 import 'package:event_ticket_booking/core/networking/api_constants.dart';
 import 'package:event_ticket_booking/core/networking/api_service.dart';
 import 'package:event_ticket_booking/core/networking/dio_factory.dart';
+import 'package:event_ticket_booking/features/login/data/repos/login_repo.dart';
+import 'package:event_ticket_booking/features/login/presentation/cubit/login_cubit.dart';
 import 'package:event_ticket_booking/features/register/data/repos/register_repo.dart';
 import 'package:event_ticket_booking/features/register/presentation/cubit/register_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -23,11 +25,20 @@ void setupGetIt() {
     () => RegisterRepo(getIt<ApiService>(instanceName: routeApiService)),
     instanceName: routeApiService,
   );
+  getIt.registerLazySingleton<LoginRepo>(
+    () => LoginRepo(getIt<ApiService>(instanceName: routeApiService)),
+    instanceName: routeApiService,
+  );
 
   // cubits
   getIt.registerFactory(
     () => RegisterCubit(
       registerRepo: getIt<RegisterRepo>(instanceName: routeApiService),
+    ),
+  );
+  getIt.registerFactory(
+    () => LoginCubit(
+      loginRepo: getIt<LoginRepo>(instanceName: routeApiService),
     ),
   );
 }
