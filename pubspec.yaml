@@ -33,7 +33,7 @@ dependencies:
   dio: ^5.11.1
   flutter:
     sdk: flutter
-  flutter_bloc: ^9.1.1
+  flutter_bloc: ^8.1.6
   flutter_dotenv: ^6.0.1
   flutter_native_splash: ^2.4.8
   flutter_secure_storage: ^11.2.0
@@ -43,9 +43,12 @@ dependencies:
   shared_preferences: ^2.5.5
 
 dev_dependencies:
+  bloc_test: ^9.1.7
   flutter_lints: ^6.0.0
+  flutter_secure_storage_platform_interface: ^2.1.1
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
