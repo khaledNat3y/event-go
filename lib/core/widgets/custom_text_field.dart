@@ -1,4 +1,3 @@
-import 'package:event_ticket_booking/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {

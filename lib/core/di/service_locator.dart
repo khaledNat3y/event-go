@@ -11,11 +11,11 @@ const String ticketMasterApiService = 'ticketMasterApiService';
 void setupGetIt() {
   // services
   getIt.registerLazySingleton<ApiService>(
-    () => ApiService(DioFactory(baseUrl: ApiConstants.RouteBaseUrl)),
+    () => ApiService(DioFactory(baseUrl: ApiConstants.routeBaseUrl)),
     instanceName: routeApiService,
   );
   getIt.registerLazySingleton<ApiService>(
-    () => ApiService(DioFactory(baseUrl: ApiConstants.TicketMasterBaseUrl)),
+    () => ApiService(DioFactory(baseUrl: ApiConstants.ticketMasterBaseUrl)),
     instanceName: ticketMasterApiService,
   );
   // repos

@@ -2,7 +2,6 @@ import 'package:event_ticket_booking/core/helper/app_constants.dart';
 import 'package:event_ticket_booking/core/helper/shared_pref_helper.dart';
 import 'package:event_ticket_booking/core/routes/app_router.dart';
 import 'package:event_ticket_booking/core/routes/app_routes.dart';
-import 'package:event_ticket_booking/core/theme/app_colors.dart';
 import 'package:event_ticket_booking/core/theme/themes.dart';
 import 'package:flutter/material.dart';
 

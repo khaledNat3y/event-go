@@ -6,7 +6,6 @@ import 'package:event_ticket_booking/core/networking/api_error_handler.dart';
 import 'package:event_ticket_booking/core/networking/api_result.dart';
 import 'package:event_ticket_booking/core/networking/api_service.dart';
 import 'package:event_ticket_booking/core/networking/auth_error_parser.dart';
-import 'package:event_ticket_booking/core/networking/dio_factory.dart';
 import 'package:event_ticket_booking/features/register/data/models/register_request_model.dart';
 import 'package:event_ticket_booking/features/register/data/models/register_response_model.dart';
 

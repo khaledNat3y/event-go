@@ -14,7 +14,7 @@ class ApiService {
   }) async {
     try {
       return await _dioFactory.dio.get(endPoint, queryParameters: queryParams);
-    } on DioException catch (e) {
+    } catch (e) {
       rethrow;
     }
   }

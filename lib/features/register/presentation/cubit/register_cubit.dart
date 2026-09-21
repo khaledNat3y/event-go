@@ -5,7 +5,6 @@ import 'package:event_ticket_booking/features/register/data/models/register_resp
 import 'package:event_ticket_booking/features/register/data/repos/register_repo.dart';
 import 'package:event_ticket_booking/features/register/presentation/cubit/register_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   final RegisterRepo _registerRepo;
@@ -27,7 +26,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         break;
       case Error(error: final error):
         final appError = error as AppError;
-        emit(state.copyWith(status: Status.error, message: error.message));
+        emit(state.copyWith(status: Status.error, message: appError.message));
         break;
     }
   }

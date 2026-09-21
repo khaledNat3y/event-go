@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:event_ticket_booking/core/networking/api_constants.dart';
-import 'package:event_ticket_booking/core/networking/api_error_parser.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
