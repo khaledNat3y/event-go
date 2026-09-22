@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:event_ticket_booking/core/helper/app_constants.dart';
-import 'package:event_ticket_booking/core/helper/shared_pref_helper.dart';
 import 'package:event_ticket_booking/core/networking/api_constants.dart';
 import 'package:event_ticket_booking/core/networking/api_error_handler.dart';
 import 'package:event_ticket_booking/core/networking/api_result.dart';
