@@ -22,10 +22,11 @@ class LoginRepo {
       );
       if (response.statusCode! >= 200 && response.statusCode! < 400) {
         final data = LoginResponseModel.fromJson(response.data);
-        await SharedPrefHelper.setSecuredString(
-          AppConstants.tokenKey,
-          data.token!,
-        );
+        // NOTE: I Think we don't need to save token in login because i save it when user register new account.
+        // await SharedPrefHelper.setSecuredString(
+        //   AppConstants.tokenKey,
+        //   data.token!,
+        // );
         return Success(data);
       } else {
         return Error(

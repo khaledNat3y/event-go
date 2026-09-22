@@ -1,3 +1,4 @@
+import 'package:event_ticket_booking/core/routes/app_routes.dart';
 import 'package:event_ticket_booking/core/theme/app_colors.dart';
 import 'package:event_ticket_booking/features/login/presentation/cubit/login_cubit.dart';
 import 'package:event_ticket_booking/features/login/presentation/cubit/login_state.dart';
@@ -31,6 +32,7 @@ class LoginScreen extends StatelessWidget {
               ),
             );
             // Navigate to home screen here.
+            Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
           }
           if (state.status == Status.error) {
             ScaffoldMessenger.of(context).showSnackBar(

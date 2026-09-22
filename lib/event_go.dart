@@ -16,9 +16,7 @@ class EventGo extends StatelessWidget {
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
       onGenerateRoute: AppRouter.onGenerateRoutes,
-      initialRoute: isLoggedIn
-          ? AppRoutes.loginScreen
-          : AppRoutes.registerScreen,
+      initialRoute: isLoggedIn ? AppRoutes.homeScreen : AppRoutes.loginScreen,
     );
   }
 }
