@@ -3,7 +3,7 @@ import 'package:event_ticket_booking/core/networking/api_constants.dart';
 import 'package:event_ticket_booking/core/networking/api_error_handler.dart';
 import 'package:event_ticket_booking/core/networking/api_result.dart';
 import 'package:event_ticket_booking/core/networking/api_service.dart';
-import 'package:event_ticket_booking/core/networking/auth_error_parser.dart';
+import 'package:event_ticket_booking/core/networking/route_error_parser.dart';
 import 'package:event_ticket_booking/features/login/data/models/login_request_model.dart';
 import 'package:event_ticket_booking/features/login/data/models/login_response_model.dart';
 
@@ -28,11 +28,11 @@ class LoginRepo {
         return Success(data);
       } else {
         return Error(
-          ApiErrorHandler.handle(response, parser: AuthErrorParser()),
+          ApiErrorHandler.handle(response, parser: RoutErrorParser()),
         );
       }
     } on DioException catch (e) {
-      return Error(ApiErrorHandler.handle(e, parser: AuthErrorParser()));
+      return Error(ApiErrorHandler.handle(e, parser: RoutErrorParser()));
     }
   }
 }

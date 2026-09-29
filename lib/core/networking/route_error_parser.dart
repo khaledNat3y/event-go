@@ -2,7 +2,7 @@ import 'package:event_ticket_booking/core/networking/api_error_model_route.dart'
 import 'package:event_ticket_booking/core/networking/api_error_parser.dart';
 import 'package:event_ticket_booking/core/networking/app_error.dart';
 
-class AuthErrorParser implements ApiErrorParser {
+class RoutErrorParser implements ApiErrorParser {
   @override
   AppError parse(dynamic responseData, int? statusCode) {
     if (responseData is Map<String, dynamic>) {

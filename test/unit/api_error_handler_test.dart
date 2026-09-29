@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:event_ticket_booking/core/networking/api_error_handler.dart';
 import 'package:event_ticket_booking/core/networking/app_error.dart';
-import 'package:event_ticket_booking/core/networking/auth_error_parser.dart';
+import 'package:event_ticket_booking/core/networking/route_error_parser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('ApiErrorHandler.handle', () {
-    final parser = AuthErrorParser();
+    final parser = RoutErrorParser();
 
     test('maps a DioException connection timeout', () {
       final error = ApiErrorHandler.handle(

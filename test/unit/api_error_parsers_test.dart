@@ -1,5 +1,5 @@
 import 'package:event_ticket_booking/core/networking/api_error_model.dart';
-import 'package:event_ticket_booking/core/networking/auth_error_parser.dart';
+import 'package:event_ticket_booking/core/networking/route_error_parser.dart';
 import 'package:event_ticket_booking/core/networking/app_error.dart';
 import 'package:event_ticket_booking/core/networking/ticket_master_error_parser.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,9 +30,7 @@ void main() {
     });
 
     test('falls back to generic message when fault fields missing', () {
-      final error = parser.parse({
-        'fault': <String, dynamic>{},
-      }, 429);
+      final error = parser.parse({'fault': <String, dynamic>{}}, 429);
 
       expect(error.message, 'Something went wrong. Please try again.');
       expect(error.code, '429');
@@ -95,7 +93,7 @@ void main() {
   });
 
   group('AuthErrorParser', () {
-    final parser = AuthErrorParser();
+    final parser = RoutErrorParser();
 
     test('parses message and statusMsg from a map payload', () {
       final error = parser.parse({
