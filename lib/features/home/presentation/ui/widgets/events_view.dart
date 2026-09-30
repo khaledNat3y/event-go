@@ -1,4 +1,3 @@
-import 'package:event_ticket_booking/core/utils/validators.dart';
 import 'package:event_ticket_booking/features/home/presentation/cubit/home_cubit.dart';
 import 'package:event_ticket_booking/features/home/presentation/ui/widgets/events_empty_view.dart';
 import 'package:event_ticket_booking/features/home/presentation/ui/widgets/events_error_view.dart';
@@ -17,13 +16,22 @@ class EventsView extends StatelessWidget {
       builder: (context, state) {
         return switch (state) {
           HomeInitial() || EventsLoading() => const EventsLoadingView(),
-          EventsSuccess(eventsList: final events) =>
+          EventsSuccess(
+            eventsList: final events,
+            paginationModel: final page,
+          ) =>
             events.isEmpty
                 ? const EventsEmptyView()
                 : EventsList(
+                    key: const ValueKey('eventsList'),
                     events: events,
+                    pagination: page,
+                    isLoadingMore: state.isLoadingMore,
+                    loadMoreError: state.loadMoreError,
+                    onLoadMore: () => context.read<HomeCubit>().loadMore(),
+                    onRetryLoadMore: () => context.read<HomeCubit>().loadMore(),
                     onEventTap: (event) {
-                      launchUrlToEvent(Uri.parse(event.ticketUrl!));
+                      // launchUrlToEvent(Uri.parse(event.ticketUrl!));
                     },
                   ),
           EventsFailure(message: final message) => EventsErrorView(

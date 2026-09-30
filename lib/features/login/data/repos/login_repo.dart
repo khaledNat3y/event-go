@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:event_ticket_booking/core/helper/app_constants.dart';
+import 'package:event_ticket_booking/core/helper/shared_pref_helper.dart';
 import 'package:event_ticket_booking/core/networking/api_constants.dart';
 import 'package:event_ticket_booking/core/networking/api_error_handler.dart';
 import 'package:event_ticket_booking/core/networking/api_result.dart';
@@ -20,11 +22,11 @@ class LoginRepo {
       );
       if (response.statusCode! >= 200 && response.statusCode! < 400) {
         final data = LoginResponseModel.fromJson(response.data);
-        // NOTE: I Think we don't need to save token in login because i save it when user register new account.
-        // await SharedPrefHelper.setSecuredString(
-        //   AppConstants.tokenKey,
-        //   data.token!,
-        // );
+        // NOTE: I need to save token in login also because maybe there is an user have account but delete application and install it again.
+        await SharedPrefHelper.setSecuredString(
+          AppConstants.tokenKey,
+          data.token!,
+        );
         return Success(data);
       } else {
         return Error(

@@ -2,13 +2,19 @@ import 'dart:math' as math;
 
 import 'package:event_ticket_booking/core/theme/app_colors.dart';
 import 'package:event_ticket_booking/features/home/data/models/event_model.dart';
+import 'package:event_ticket_booking/features/home/data/models/pagination_model.dart';
 import 'package:event_ticket_booking/features/home/presentation/ui/widgets/event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class EventsList extends StatelessWidget {
+class EventsList extends StatefulWidget {
   final List<EventModel> events;
+  final PaginationModel pagination;
   final void Function(EventModel event)? onEventTap;
+  final VoidCallback? onLoadMore;
+  final VoidCallback? onRetryLoadMore;
+  final bool isLoadingMore;
+  final String? loadMoreError;
   final EdgeInsetsGeometry padding;
 
   const EventsList({
@@ -16,11 +22,51 @@ class EventsList extends StatelessWidget {
     required this.events,
     this.onEventTap,
     this.padding = const EdgeInsets.fromLTRB(16, 20, 16, 32),
+    required this.pagination,
+    this.onLoadMore,
+    this.onRetryLoadMore,
+    this.isLoadingMore = false,
+    this.loadMoreError,
   });
+
+  @override
+  State<EventsList> createState() => _EventsListState();
+}
+
+class _EventsListState extends State<EventsList> {
+  late final ScrollController scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (!scrollController.hasClients) return;
+    if (widget.isLoadingMore || widget.loadMoreError != null) return;
+    if (!widget.pagination.hasNextPage) return;
+    if (widget.onLoadMore == null) return;
+
+    final position = scrollController.position;
+    if (position.pixels < position.maxScrollExtent - 400) return;
+
+    widget.onLoadMore!();
+  }
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      controller: scrollController,
       physics: const BouncingScrollPhysics(),
       slivers: [
         SliverAppBar(
@@ -70,26 +116,26 @@ class EventsList extends StatelessWidget {
                 letterSpacing: -0.5,
               ),
             ),
-            background: _HeaderBackground(count: events.length),
+            background: _HeaderBackground(count: widget.events.length),
           ),
         ),
         SliverPadding(
-          padding: padding,
+          padding: widget.padding,
           sliver: SliverList.separated(
-            itemCount: events.length,
+            itemCount: widget.events.length,
             separatorBuilder: (_, __) => const SizedBox(height: 16),
             itemBuilder: (context, index) {
-              final event = events[index];
+              final event = widget.events[index];
               return _FadeSlideIn(
                 index: index,
                 child: _PressScale(
                   child: EventCard(
                     event: event,
-                    onTap: onEventTap == null
+                    onTap: widget.onEventTap == null
                         ? null
                         : () {
                             HapticFeedback.lightImpact();
-                            onEventTap!(event);
+                            widget.onEventTap!(event);
                           },
                   ),
                 ),
@@ -97,7 +143,85 @@ class EventsList extends StatelessWidget {
             },
           ),
         ),
+        SliverToBoxAdapter(
+          child: _PaginationFooter(
+            isLoading: widget.isLoadingMore,
+            error: widget.loadMoreError,
+            hasNextPage: widget.pagination.hasNextPage,
+            onRetry: widget.onRetryLoadMore,
+          ),
+        ),
       ],
+    );
+  }
+}
+
+class _PaginationFooter extends StatelessWidget {
+  final bool isLoading;
+  final String? error;
+  final bool hasNextPage;
+  final VoidCallback? onRetry;
+
+  const _PaginationFooter({
+    required this.isLoading,
+    required this.error,
+    required this.hasNextPage,
+    this.onRetry,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 24),
+        child: Center(
+          child: SizedBox(
+            width: 24,
+            height: 24,
+            child: CircularProgressIndicator(strokeWidth: 2.5),
+          ),
+        ),
+      );
+    }
+
+    if (error != null) {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+        child: Column(
+          children: [
+            Text(
+              error!,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.error,
+                fontSize: 13,
+              ),
+            ),
+            TextButton(
+              onPressed: onRetry,
+              child: const Text('Retry'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (hasNextPage) return const SizedBox(height: 8);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Center(
+        child: Text(
+          "You've reached the end",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface.withValues(
+              alpha: 0.5,
+            ),
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -190,7 +314,11 @@ class _PressScaleState extends State<_PressScale> {
   bool _pressed = false;
 
   void _set(bool v) {
-    if (_pressed != v) setState(() => _pressed = v);
+    if (!mounted || _pressed == v) return;
+
+    setState(() {
+      _pressed = v;
+    });
   }
 
   @override
