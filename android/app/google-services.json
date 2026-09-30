@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "856889576582",
+    "project_id": "event-go-5d190",
+    "storage_bucket": "event-go-5d190.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856889576582:android:d066bd137e1ee77861d507",
+        "android_client_info": {
+          "package_name": "com.example.event_ticket_booking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZERAPo2-ZjQmTa_aX4VCr7qLdYVnbWZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

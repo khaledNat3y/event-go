@@ -1,3 +1,5 @@
+import 'package:url_launcher/url_launcher.dart';
+
 class LoginValidators {
   LoginValidators._();
   static String? email(String? value) {
@@ -80,5 +82,11 @@ class RegisterValidators {
       return 'Please enter a valid phone number';
     }
     return null;
+  }
+}
+
+Future<void> launchUrlToEvent(Uri url) async {
+  if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
+    throw Exception('Could not launch $url');
   }
 }

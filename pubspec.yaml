@@ -42,6 +42,7 @@ dependencies:
   intl: ^0.20.3
   pretty_dio_logger: ^1.4.0
   shared_preferences: ^2.5.5
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   bloc_test: ^9.1.7

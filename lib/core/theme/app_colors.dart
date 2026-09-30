@@ -4,6 +4,7 @@ class AppColors {
   AppColors._();
 
   static const Color primary = Color(0xFF111111);
+  static const Color primarySoft = Color(0xFF1E1E1E); // for black gradients
 
   static const Color background = Color(0xFFF5F5F5);
   static const Color surface = Color(0xFFFFFFFF);
