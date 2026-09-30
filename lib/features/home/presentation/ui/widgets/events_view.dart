@@ -1,3 +1,4 @@
+import 'package:event_ticket_booking/core/routes/app_routes.dart';
 import 'package:event_ticket_booking/features/home/presentation/cubit/home_cubit.dart';
 import 'package:event_ticket_booking/features/home/presentation/ui/widgets/events_empty_view.dart';
 import 'package:event_ticket_booking/features/home/presentation/ui/widgets/events_error_view.dart';
@@ -5,7 +6,6 @@ import 'package:event_ticket_booking/features/home/presentation/ui/widgets/event
 import 'package:event_ticket_booking/features/home/presentation/ui/widgets/events_loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class EventsView extends StatelessWidget {
   const EventsView({super.key});
@@ -32,6 +32,11 @@ class EventsView extends StatelessWidget {
                     onRetryLoadMore: () => context.read<HomeCubit>().loadMore(),
                     onEventTap: (event) {
                       // launchUrlToEvent(Uri.parse(event.ticketUrl!));
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.homeDetailsScreen,
+                        arguments: event,
+                      );
                     },
                   ),
           EventsFailure(message: final message) => EventsErrorView(

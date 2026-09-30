@@ -1,6 +1,8 @@
 import 'package:event_ticket_booking/core/di/service_locator.dart';
 import 'package:event_ticket_booking/core/routes/app_routes.dart';
+import 'package:event_ticket_booking/features/home/data/models/event_model.dart';
 import 'package:event_ticket_booking/features/home/presentation/cubit/home_cubit.dart';
+import 'package:event_ticket_booking/features/home/presentation/ui/home_details_screen.dart';
 import 'package:event_ticket_booking/features/home/presentation/ui/home_screen.dart';
 import 'package:event_ticket_booking/features/login/presentation/cubit/login_cubit.dart';
 import 'package:event_ticket_booking/features/login/presentation/ui/login_screen.dart';
@@ -34,6 +36,13 @@ class AppRouter {
             create: (context) => getIt<HomeCubit>()..getEvents(),
             child: HomeScreen(),
           ),
+        );
+      case AppRoutes.homeDetailsScreen:
+        final event = settings.arguments;
+        if (event is! EventModel) return null;
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => HomeDetailsScreen(event: event),
         );
     }
     return null;
